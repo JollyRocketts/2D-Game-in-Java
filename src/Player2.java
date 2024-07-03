@@ -6,26 +6,26 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Player {
+public class Player2 {
     private BufferedImage image;
     private Image img;
     private Point pos;
     private int score;
     static int n = 1;
 
-    public Player() {
+    public Player2() {
         loadImage();
 
-        pos = new Point(0,0);
+        pos = new Point(21,10);
         score = 0;
     }
 
-    public Player(int x, int y) {
-        loadImage();
-
-        pos = new Point(x, y);
-        score = 0;
-    }
+//    public Player2(int x, int y) {
+//        loadImage();
+//
+//        pos = new Point(x, y);
+//        score = 0;
+//    }
 
     private void loadImage() {
         try {
@@ -44,16 +44,16 @@ public class Player {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if(key == KeyEvent.VK_W) {
+        if(key == KeyEvent.VK_UP) {
             pos.translate(0,-1);
         }
-        if(key == KeyEvent.VK_S) {
+        if(key == KeyEvent.VK_DOWN) {
             pos.translate(0,1);
         }
-        if(key == KeyEvent.VK_A) {
+        if(key == KeyEvent.VK_LEFT) {
             pos.translate(-1,0);
         }
-        if(key == KeyEvent.VK_D) {
+        if(key == KeyEvent.VK_RIGHT) {
             pos.translate(1,0);
         }
     }
