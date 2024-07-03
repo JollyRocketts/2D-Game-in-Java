@@ -12,12 +12,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private static final long UID = 849285385084219330L;
     private javax.swing.Timer timer;
     private Player player;
+    private Player p2;
     private ArrayList<Coin> coins;
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE*COLS, TILE_SIZE*ROWS));
         setBackground(new Color(0, 154, 255));
         player = new Player();
+        p2 = new Player(21,15);
         coins = populateCoins();
         timer = new javax.swing.Timer(DELAY, this);
         timer.start();
@@ -25,6 +27,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     public void actionPerformed(ActionEvent e) {
         player.tick();
+        p2.tick();
         collectCoins();
         repaint();
     }
@@ -38,6 +41,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             coin.draw(g, this);
         }
         player.draw(g, this);
+        p2.draw(g, this);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -48,6 +52,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     public void keyPressed(KeyEvent e) {
         player.keyPressed(e);
+        p2.keyPressed(e);
     }
 
     public void keyReleased(KeyEvent e) {

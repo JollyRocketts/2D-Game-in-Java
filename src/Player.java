@@ -20,6 +20,13 @@ public class Player {
         score = 0;
     }
 
+    public Player(int x, int y) {
+        loadImage();
+
+        pos = new Point(x, y);
+        score = 0;
+    }
+
     private void loadImage() {
         try {
             image = ImageIO.read(new File("images/Player.png"));
