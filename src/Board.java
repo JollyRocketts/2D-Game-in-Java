@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.Timer;
 import javax.swing.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -11,7 +10,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public static final int COLS = 18;
     public static final int NUM_COINS = 5;
     private static final long UID = 849285385084219330L;
-    private Timer timer;
+    private javax.swing.Timer timer;
     private Player player;
     private ArrayList<Coin> coins;
 
@@ -20,8 +19,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         setBackground(new Color(100,193,255));
         player = new Player();
         coins = populateCoins();
-
-        timer = new Timer(DELAY, this);
+        timer = new javax.swing.Timer(DELAY, this);
         timer.start();
     }
 

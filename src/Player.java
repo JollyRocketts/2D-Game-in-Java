@@ -1,14 +1,14 @@
+import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Player {
-    private BufferedImage img;
+    private BufferedImage image;
+    private Image img;
     private Point pos;
     private int score;
 
@@ -21,7 +21,8 @@ public class Player {
 
     private void loadImage() {
         try {
-            img = ImageIO.read(new File("images/Player.png"));
+            image = ImageIO.read(new File("images/Player.png"));
+            img = image.getScaledInstance(50,50, Image.SCALE_DEFAULT);
         }
         catch(IOException e) {
             System.out.println("Error loading image: "+e.getMessage());
