@@ -13,7 +13,8 @@ public class Player {
     private Image img;
     private Point pos;
     private int score;
-    static int n = 1;
+    int n = 1;
+    boolean flag = false;
 
     public Player() {
         loadImage();
@@ -85,6 +86,9 @@ public class Player {
     }
 
     public void addScore(int amt) {
+        if(!flag) {
+            n = 1;
+        }
         score += (amt*n);
         n++;
     }

@@ -4,8 +4,9 @@
 = Change png for player 2
 = 2 Scores
 = Coins Respawn as they are grabbed in another place
-- Time limit on round
-- Winner popup at end of timer
+= Time limit on round
+= Winner popup at end of timer
+= Scorestreaks for each player
 
 - Add flipping horizontally with the use of right and left or A and D keys
 

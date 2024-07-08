@@ -5,6 +5,8 @@ import java.util.*;
 import javax.swing.*;
 import java.util.Timer;
 
+import static java.lang.Thread.sleep;
+
 public class Board extends JPanel implements ActionListener, KeyListener {
     private final int DELAY = 25;
     public static final int TILE_SIZE = 50;
@@ -19,7 +21,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final Set<Integer> activeKeys = new HashSet<>();
     Graphics g;
     private Timer cdTimer;
-    private int countdown = 10;
+    private int countdown = 6;
     private int starting = 1000;
     private int ticking = 1000;
 
@@ -38,8 +40,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         player.tick();
         p2.tick();
         collectCoins();
-        gameEnded();
         repaint();
+        gameEnded();
     }
 
     public void paintComponent(Graphics g) {
@@ -157,7 +159,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         String text2 = "$" + p2.getScore();
         String p1_text = "P1";
         String p2_text = "P2";
-        String time_cd = String.valueOf(countdown);
+        String time_cd;
+        if(countdown>0) {
+            time_cd = String.valueOf(countdown);
+        }
+        else {
+            time_cd = "TIME'S UP!";
+        }
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -214,10 +222,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(player.getPos().equals(coin.getPos())) {
                 player.addScore(100);
                 collCoins.add(coin);
+                p2.flag = false;
+                player.flag = true;
             }
             else if(p2.getPos().equals(coin.getPos())) {
                 p2.addScore(100);
                 collCoins.add(coin);
+                player.flag = false;
+                p2.flag = true;
             }
         }
         coins.removeAll(collCoins);
