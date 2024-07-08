@@ -19,7 +19,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final Set<Integer> activeKeys = new HashSet<>();
     Graphics g;
     private Timer cdTimer;
-    private int countdown = 60;
+    private int countdown = 10;
     private int starting = 1000;
     private int ticking = 1000;
 
@@ -38,6 +38,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         player.tick();
         p2.tick();
         collectCoins();
+        gameEnded();
         repaint();
     }
 
@@ -224,6 +225,26 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         if(!collCoins.isEmpty()) {
             addedCoins = populateCoins();
             coins.addAll(addedCoins);
+        }
+    }
+
+    private void gameEnded() {
+        if(countdown == 0) {
+            int ans;
+
+            if(Integer.parseInt(player.getScore()) == Integer.parseInt(p2.getScore())) {
+                ans = JOptionPane.showOptionDialog(null, "It's a Tie!","Game Ended", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            }
+            else if(Integer.parseInt(player.getScore()) > Integer.parseInt(p2.getScore())) {
+                ans = JOptionPane.showOptionDialog(null, "Player 1 Wins!","Game Ended", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            }
+            else {
+                ans = JOptionPane.showOptionDialog(null, "Player 2 Wins!","Game Ended", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            }
+
+            if(ans == -1 || ans == 0) {
+                System.exit(0);
+            }
         }
     }
 }
