@@ -57,7 +57,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 //        p2.keyPressed(e);
 
         activeKeys.add(e.getKeyCode());
-        System.out.println(activeKeys);
+
+        //System.out.println(activeKeys);
+
         if(!activeKeys.isEmpty()) {
             if(activeKeys.contains(KeyEvent.VK_W)) {
                 //pos.translate(0,-1);
