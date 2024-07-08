@@ -14,6 +14,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private Player player;
     private Player2 p2;
     private ArrayList<Coin> coins;
+    private final Set<Integer> activeKeys = new HashSet<>();
+
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE*COLS, TILE_SIZE*ROWS));
@@ -50,13 +52,60 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    public void keyPressed(KeyEvent e) {
-        player.keyPressed(e);
-        p2.keyPressed(e);
+    public synchronized void keyPressed(KeyEvent e) {
+//        player.keyPressed(e);
+//        p2.keyPressed(e);
+
+        activeKeys.add(e.getKeyCode());
+        System.out.println(activeKeys);
+        if(!activeKeys.isEmpty()) {
+            if(activeKeys.contains(KeyEvent.VK_W)) {
+                //pos.translate(0,-1);
+                player.getPos().translate(0,-1);
+                //player.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_S)) {
+//                pos.translate(0,1);
+                player.getPos().translate(0,1);
+                //player.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_A)) {
+//                pos.translate(-1,0);
+                player.getPos().translate(-1,0);
+                //player.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_D)) {
+//                pos.translate(1,0);
+                player.getPos().translate(1,0);
+                //player.keyPressed(e);
+            }
+
+
+            if(activeKeys.contains(KeyEvent.VK_UP)) {
+                //pos.translate(0,-1);
+                p2.getPos().translate(0,-1);
+                //p2.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_DOWN)) {
+//                pos.translate(0,1);
+                p2.getPos().translate(0,1);
+                //p2.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_LEFT)) {
+//                pos.translate(-1,0);
+                p2.getPos().translate(-1,0);
+                //p2.keyPressed(e);
+            }
+            if(activeKeys.contains(KeyEvent.VK_RIGHT)) {
+//                pos.translate(1,0);
+                p2.getPos().translate(1,0);
+                //p2.keyPressed(e);
+            }
+        }
     }
 
-    public void keyReleased(KeyEvent e) {
-
+    public synchronized void keyReleased(KeyEvent e) {
+        activeKeys.remove(e.getKeyCode());
     }
 
     private void drawBackground(Graphics g) {

@@ -16,7 +16,7 @@ public class Player2 {
     public Player2() {
         loadImage();
 
-        pos = new Point(21,10);
+        pos = new Point(21,15);
         score = 0;
     }
 
