@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.ImageObserver;
 import java.util.*;
 import javax.swing.*;
 
@@ -15,7 +16,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private Player2 p2;
     private ArrayList<Coin> coins;
     private final Set<Integer> activeKeys = new HashSet<>();
-
+    Graphics g;
+    ImageObserver observer;
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE*COLS, TILE_SIZE*ROWS));
@@ -74,11 +76,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(activeKeys.contains(KeyEvent.VK_A)) {
 //                pos.translate(-1,0);
                 player.getPos().translate(-1,0);
+//                player.drawInv(g, this);
                 //player.keyPressed(e);
             }
             if(activeKeys.contains(KeyEvent.VK_D)) {
 //                pos.translate(1,0);
                 player.getPos().translate(1,0);
+//                player.draw(g, this);
                 //player.keyPressed(e);
             }
 
@@ -96,11 +100,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(activeKeys.contains(KeyEvent.VK_LEFT)) {
 //                pos.translate(-1,0);
                 p2.getPos().translate(-1,0);
+//                p2.draw(g, this);
+
                 //p2.keyPressed(e);
             }
             if(activeKeys.contains(KeyEvent.VK_RIGHT)) {
 //                pos.translate(1,0);
                 p2.getPos().translate(1,0);
+//                p2.drawInv(g, this);
+
                 //p2.keyPressed(e);
             }
         }
@@ -124,6 +132,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void drawScore(Graphics g) {
         String text = "$" + player.getScore();
+        String text2 = "$" + p2.getScore();
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -134,9 +143,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
         Rectangle rect = new Rectangle(0, TILE_SIZE*(ROWS-1), TILE_SIZE*COLS, TILE_SIZE);
-        int x = rect.x + (rect.width - metrics.stringWidth(text))/2;
-        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        int x = rect.x + (rect.width - metrics.stringWidth(text))/3;
+        int y = rect.y + ((rect.height - metrics.getHeight()) / 3) + metrics.getAscent();
+
+        Rectangle rect2 = new Rectangle(0, TILE_SIZE*(ROWS-1), TILE_SIZE*COLS, TILE_SIZE);
+        int x2 = rect.x + 2*(rect.width - metrics.stringWidth(text))/3;
+        int y2 = rect.y + (2*(rect.height - metrics.getHeight()) / 3) + metrics.getAscent();
+
         g2d.drawString(text, x, y);
+        g2d.drawString(text2, x2, y2);
     }
 
     private ArrayList<Coin> populateCoins() {
@@ -158,6 +173,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for(Coin coin: coins) {
             if(player.getPos().equals(coin.getPos())) {
                 player.addScore(100);
+                collCoins.add(coin);
+            }
+            else if(p2.getPos().equals(coin.getPos())) {
+                p2.addScore(100);
                 collCoins.add(coin);
             }
         }

@@ -1,6 +1,7 @@
 = 2-Players
 = Independently move both players
 = Flip horizontally 2nd player for start
+= Change png for player 2
 - 2 Scores
 - Coins Respawn as they are grabbed in another place
 - Time limit on round
@@ -9,5 +10,5 @@
 - Add flipping horizontally with the use of right and left or A and D keys
 
 
-Might have to remove the added code in Player class and add it to Board class
+= Might have to remove the added code in Player class and add it to Board class
 Because Board class has the KeyRelease func too, so add the part of code which removes the key from the set

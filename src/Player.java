@@ -43,6 +43,10 @@ public class Player {
         g.drawImage(img, pos.x*Board.TILE_SIZE, pos.y*Board.TILE_SIZE, observer);
     }
 
+    public void drawInv(Graphics g, ImageObserver observer) {
+        g.drawImage(img, pos.x*Board.TILE_SIZE+img.getWidth(observer), pos.y*Board.TILE_SIZE, -img.getWidth(observer), img.getHeight(observer), observer);
+    }
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
