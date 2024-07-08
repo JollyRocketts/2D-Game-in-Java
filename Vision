@@ -8,7 +8,7 @@
 = Winner popup at end of timer
 = Scorestreaks for each player
 
-- Add flipping horizontally with the use of right and left or A and D keys
+= Add flipping horizontally with the use of right and left or A and D keys
 
 
 = Might have to remove the added code in Player class and add it to Board class

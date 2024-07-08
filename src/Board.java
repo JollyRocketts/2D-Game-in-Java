@@ -20,10 +20,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ArrayList<Coin> coins;
     private final Set<Integer> activeKeys = new HashSet<>();
     Graphics g;
+    //Graphics2D g2d;
     private Timer cdTimer;
-    private int countdown = 6;
+    private int countdown = 60;
     private int starting = 1000;
     private int ticking = 1000;
+    private boolean p1_inv = false;
+    private boolean p2_inv = false;
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE*COLS, TILE_SIZE*ROWS));
@@ -52,8 +55,18 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         for(Coin coin: coins) {
             coin.draw(g, this);
         }
-        player.draw(g, this);
-        p2.draw(g, this);
+        if(p1_inv) {
+            player.drawInv(g, this);
+        }
+        else {
+            player.draw(g, this);
+        }
+        if(p2_inv) {
+            p2.drawInv(g, this);
+        }
+        else {
+            p2.draw(g, this);
+        }
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -84,12 +97,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(activeKeys.contains(KeyEvent.VK_A)) {
 //                pos.translate(-1,0);
                 player.getPos().translate(-1,0);
-//                player.drawInv(g, this);
+                p1_inv = true;
+                //                player.drawInv(g, this);
                 //player.keyPressed(e);
             }
             if(activeKeys.contains(KeyEvent.VK_D)) {
 //                pos.translate(1,0);
                 player.getPos().translate(1,0);
+                p1_inv = false;
 //                player.draw(g, this);
                 //player.keyPressed(e);
             }
@@ -108,6 +123,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(activeKeys.contains(KeyEvent.VK_LEFT)) {
 //                pos.translate(-1,0);
                 p2.getPos().translate(-1,0);
+                p2_inv = false;
 //                p2.draw(g, this);
 
                 //p2.keyPressed(e);
@@ -115,6 +131,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             if(activeKeys.contains(KeyEvent.VK_RIGHT)) {
 //                pos.translate(1,0);
                 p2.getPos().translate(1,0);
+                p2_inv = true;
 //                p2.drawInv(g, this);
 
                 //p2.keyPressed(e);
