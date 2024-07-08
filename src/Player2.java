@@ -29,7 +29,7 @@ public class Player2 {
 
     private void loadImage() {
         try {
-            image = ImageIO.read(new File("images/Player.png"));
+            image = ImageIO.read(new File("images/Player2.png"));
             img = image.getScaledInstance(50,50, Image.SCALE_DEFAULT);
         }
         catch(IOException e) {
