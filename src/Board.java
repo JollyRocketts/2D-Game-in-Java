@@ -162,9 +162,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         ArrayList<Coin> coinList = new ArrayList<>();
         Random rand = new Random();
 
-        for(int i=0;i<NUM_COINS;i++) {
+        int i=0;
+        if(coins != null) {
+            i = coins.size();
+        }
+
+        for(int j = i;j<NUM_COINS;j++) {
             int coinX = rand.nextInt(COLS);
             int coinY = rand.nextInt(ROWS);
+
+            //while(coinX == findComponentAt())
             coinList.add(new Coin(coinX, coinY));
         }
 
@@ -173,6 +180,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void collectCoins() {
         ArrayList<Coin> collCoins = new ArrayList<>();
+        ArrayList<Coin> addedCoins = new ArrayList<>();
 
         for(Coin coin: coins) {
             if(player.getPos().equals(coin.getPos())) {
@@ -184,7 +192,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 collCoins.add(coin);
             }
         }
-
         coins.removeAll(collCoins);
+
+        if(!collCoins.isEmpty()) {
+            addedCoins = populateCoins();
+            coins.addAll(addedCoins);
+        }
     }
 }
