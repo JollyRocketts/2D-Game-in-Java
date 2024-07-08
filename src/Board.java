@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.awt.image.ImageObserver;
 import java.util.*;
 import javax.swing.*;
+import java.util.Timer;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
     private final int DELAY = 25;
@@ -17,7 +18,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ArrayList<Coin> coins;
     private final Set<Integer> activeKeys = new HashSet<>();
     Graphics g;
-    ImageObserver observer;
+    private Timer cdTimer;
+    private int countdown = 60;
+    private int starting = 1000;
+    private int ticking = 1000;
 
     public Board() {
         setPreferredSize(new Dimension(TILE_SIZE*COLS, TILE_SIZE*ROWS));
@@ -27,6 +31,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         coins = populateCoins();
         timer = new javax.swing.Timer(DELAY, this);
         timer.start();
+        SetupTimer();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -118,6 +123,22 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         activeKeys.remove(e.getKeyCode());
     }
 
+    private void SetupTimer() {
+        cdTimer = new Timer();
+        cdTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(countdown == 1) {
+                    countdown--;
+                    cdTimer.cancel();
+                }
+                else {
+                    countdown--;
+                }
+            }
+        }, starting, ticking);
+    }
+
     private void drawBackground(Graphics g) {
         g.setColor(new Color(9, 23, 30));
 
@@ -135,6 +156,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         String text2 = "$" + p2.getScore();
         String p1_text = "P1";
         String p2_text = "P2";
+        String time_cd = String.valueOf(countdown);
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -152,10 +174,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         int x2 = rect.x + 2*(rect.width - metrics.stringWidth(text))/3;
         int y2 = rect.y + (2*(rect.height - metrics.getHeight()) / 3) + metrics.getAscent();
 
+        Rectangle rect3 = new Rectangle(0, 0, TILE_SIZE*COLS, TILE_SIZE);
+        int x3 = rect.x + (rect.width - metrics.stringWidth(text))/2;
+        int y3 = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+
         g2d.drawString(text, x, y);
         g2d.drawString(text2, x2, y2);
         g2d.drawString(p1_text, x, y-2*TILE_SIZE/3);
         g2d.drawString(p2_text, x2, y2-2*TILE_SIZE/3);
+        g2d.drawString(time_cd, x3, y3);
     }
 
     private ArrayList<Coin> populateCoins() {
