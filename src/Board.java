@@ -133,6 +133,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private void drawScore(Graphics g) {
         String text = "$" + player.getScore();
         String text2 = "$" + p2.getScore();
+        String p1_text = "P1";
+        String p2_text = "P2";
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -152,6 +154,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         g2d.drawString(text, x, y);
         g2d.drawString(text2, x2, y2);
+        g2d.drawString(p1_text, x, y-2*TILE_SIZE/3);
+        g2d.drawString(p2_text, x2, y2-2*TILE_SIZE/3);
     }
 
     private ArrayList<Coin> populateCoins() {
