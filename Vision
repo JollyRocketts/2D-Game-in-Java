@@ -1,3 +1,5 @@
+"=" means already added, "-" means future ideas/yet to add
+
 = 2-Players
 = Independently move both players
 = Flip horizontally 2nd player for start
@@ -13,3 +15,9 @@
 
 = Might have to remove the added code in Player class and add it to Board class
 Because Board class has the KeyRelease func too, so add the part of code which removes the key from the set
+
+- Add a menu which allows user to choose between 1P and 2P modes
+1P mode will have AI logic that moves P2
+
+- Make it reactive so that the users can select the timer limit
+- Make Scorestreaks visible
